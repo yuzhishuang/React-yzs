@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title></title>
+	</head>
+	<body>
+		<div id="app"></div>
+	</body>
+	<script type="text/javascript" src="react.min.js"></script>
+	<script type="text/javascript" src="react-dom.js"></script>
+	<script type="text/javascript">
+		//创建一个h1标题虚拟dom元素
+		var h1 = React.createElement(
+			'h1',
+			{
+				title: '这是一个标题',
+				id: '2'
+			},
+			'爱创课堂'
+		);
+		console.log(h1);
+		//创建一个虚拟dom的目的是什么？
+		//我们要渲染到页面中
+		
+		//将虚拟dom渲染到页面当中
+		ReactDOM.render(h1,document.getElementById('app'));
+	</script>
+</html>
