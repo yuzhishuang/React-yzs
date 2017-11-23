@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>组件属性</title>
+	</head>
+	<body>
+	<style type="text/css">
+		* {margin: 0; padding: 0; list-style: none;}
+		.title {width: 300px; height: 30px; margin: 50px}
+		.title ul {border-top: 2px solid #c8dcf2}
+		li {float: left; padding: 0 15px; margin-top: -2px; color: #073cb; line-height: 30px; cursor: pointer; border-top: 2px solid transparent; }
+		li:hover {border-top: 2px solid #0873cd;}
+	</style>	
+		<div id="app"></div>
+		<div id="app2"></div>
+		<div id="app3"></div>
+		<div id="app4"></div>
+		<script src="./js/react.js"></script>
+		<script src="./js/react-dom.js"></script>
+		<script src="./js/browser.min.js"></script>
+		<script src="./js/JSXTransformer.js"></script>
+		<script type="text/jsx">
+			//创建title组件
+			var Title = React.createClass({
+				//添加默认属性，用return返回
+				getDefaultProps: function () {
+					return {
+						titleData: ['默认标题']
+					}
+				},
+				//定义渲染子元素的方法
+				getTitle: function () {
+					//根据数据渲染li，this.props.titleData
+					return this.props.titleData.map(function (value, index) {
+						return (<li key={index}>{value}</li>);
+					})
+				},
+				//渲染虚拟dom
+				render: function () {
+					console.log(this);
+					return (
+						<div className="title">
+							<ul>
+								{/*渲染子元素*/}
+								{this.getTitle()}
+							</ul>
+						</div>
+					)
+				}
+			})
+			//将组件渲染到虚拟dom
+			ReactDOM.render(<Title titleData={["要闻", "北京新闻"]} />, document.getElementById('app'));
+			ReactDOM.render(<Title titleData={["今日话题"]} />, document.getElementById('app2'));
+			ReactDOM.render(<Title titleData={["今日热播", "影视剧", "综艺"]} />, document.getElementById('app3'));
+			ReactDOM.render(<Title />, document.getElementById('app4'));
+			
+		</script>	
+	</body>
+</html>

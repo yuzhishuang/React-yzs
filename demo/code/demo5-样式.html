@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>样式</title>
+	</head>
+	<body>
+	<style type="text/css">
+
+	</style>	
+		<div id="app"></div>
+		<div id="app1"></div>
+		<script src="./js/react.js"></script>
+		<script src="./js/react-dom.js"></script>
+		<script src="./js/browser.min.js"></script>
+		<script src="./js/JSXTransformer.js"></script>
+		<script type="text/jsx">
+			//创建一个组件
+			var Title = React.createClass({
+				render: function () {
+					//定义样式对象
+					var styles = {
+						color: 'red',
+						fontSize: '12px',
+						WebkitBoxShadow: '10px 10px green'
+					}
+					{/*可以是变量也可以是表达式*/}
+					//return (<h1 style={styles}>女子暴打鳄鱼</h1>)
+					return (<h1 style={{    
+						color: Math.random() > .5 ? 'blue' : 'pink'
+					}}>女子暴打鳄鱼</h1>)
+				}
+			})
+			//创建虚拟dom
+			var text = React.createElement(
+				'span',
+				{
+					style: {
+						color: 'orange'
+					}
+				},
+				'二手车网站'
+			)
+			//将组件渲染到页面中
+			ReactDOM.render(<Title />, document.getElementById('app'));
+			ReactDOM.render(text,document.getElementById('app1'));
+		</script>	
+	</body>
+</html>
