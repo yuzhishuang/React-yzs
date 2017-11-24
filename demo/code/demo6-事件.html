@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>样式</title>
+	</head>
+	<body>
+	<style type="text/css">
+
+	</style>	
+		<div id="app"></div>
+		<div id="app1"></div>
+		<script src="./js/react.js"></script>
+		<script src="./js/react-dom.js"></script>
+		<script src="./js/browser.min.js"></script>
+		<script src="./js/JSXTransformer.js"></script>
+		<script type="text/jsx">
+			//创建一个组件
+			var Nav = React.createClass({
+				changeNav: function () {
+					//我们要更改num
+					//通过setState更改状态,要对num加1,不能用++，It's very important that the reducer stays pure. Things you should never do inside a reducer:
+					this.setState({
+						num: this.state.num+1
+					})
+				},
+				//定义默认的state
+				getInitialState: function() {
+					return {
+						num: 0
+					};
+				},
+				//定义render方法渲染虚拟dom
+				render: function () {
+					//在getInitialState定义的num我们可以通过this.state访问
+					return (
+						<div className="nav">
+							{/*对num求余，如果是0显示第一个li，如果是1显示第二个li，如果是2显示第三个li*/}
+							<ul>
+								<li style={{
+									display: this.state.num % 3 === 0 ? 'block' : 'none'
+								}}>
+									<a href="">a</a>
+									<a href="">b</a>
+									<a href="">c</a>
+								</li>
+								<li style={{
+									display: this.state.num % 3 === 1 ? 'block' : 'none'
+								}}>
+									<a href="">d</a>
+									<a href="">e</a>
+									<a href="">f</a>
+								</li>
+								<li style={{
+									display: this.state.num % 3 === 2 ? 'block' : 'none'
+								}}>
+									<a href="">g</a>
+									<a href="">h</a>
+									<a href="">i</a>
+								</li>
+							</ul>
+							<span style={{
+								color: '#f00',
+								cursor: 'pointer'
+							}} onClick={this.changeNav}>换一换</span>
+						</div>
+					)
+				}
+			})
+			//将组件渲染到页面中
+			ReactDOM.render(<Nav />, document.getElementById('app'));
+		</script>	
+	</body>
+</html>

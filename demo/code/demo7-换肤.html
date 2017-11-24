@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>样式</title>
+	</head>
+	<body>
+	<style type="text/css">
+		* {margin: 0; padding: 0; list-style: none;}
+		.img-container {width: 1118px; margin: 100px auto;}
+		ul {margin-right: -10px;}
+		ul li {float: left; width: 178px; height: 98px; margin-right: 10px; margin-bottom: 10px;}
+		.bg {position: absolute; left: 0; top: 0; right: 0; bottom: 0; background-size: cover; z-index: -1}
+	</style>	
+		<div id="app"></div>
+		<div id="app1"></div>
+		<script src="./js/react.js"></script>
+		<script src="./js/react-dom.js"></script>
+		<script src="./js/browser.min.js"></script>
+		<script src="./js/JSXTransformer.js"></script>
+		<script type="text/jsx">
+			//创建定义换肤组件
+			var Skin = React.createClass({
+				changeBg: function (e) {
+					//获取图片设置bg
+					//通过事件对象获取元素，通过元素获取data-id的值
+					let id = e.target.getAttribute('data-id');
+					//更改num值
+					this.setState({
+						num: id
+					})
+				},
+				getInitialState: function () {
+					return {
+						num: '01'
+					}
+				},
+				createImageLi: function () {
+					//创建12个li
+					let result = [];
+					let ctx = 0;
+					//循环12次   里面事件，不要执行，因为不希望得到结果，所以不加括号
+					for (let i = 0; i < 12; i++) {
+						ctx = i < 10 ? '0' + i : i;
+						result.push(
+							<li key={i}>
+								<img width="178" height="98" data-id={ctx} src={'skin/small_' + ctx + '.jpg'} onClick={this.changeBg} alt="" />
+							</li>
+						)
+					}
+					//返回result
+					return result;
+				},
+				//设置背景图片的样式很麻烦，我们可以放在一个函数中
+				setBgStyle: function () {
+					let bg = 'skin/big_' + this.state.num + '.jpg';
+					return {
+						backgroundImage: 'url(' + bg + ')',
+						color: "#f00"
+					}
+				},
+				render: function () {
+					return (
+						<div className="container">
+							<div className="bg" style={this.setBgStyle()}></div>
+							<div className="img-container">
+								<ul>
+									{/*创建li，这是获取结果的要加括号*/}
+									{this.createImageLi()}
+								</ul>
+							</div>
+						</div>
+					)
+				}
+			})		
+			//将组件渲染到页面中
+			ReactDOM.render(<Skin />, document.getElementById('app'));
+		</script>	
+	</body>
+</html>
