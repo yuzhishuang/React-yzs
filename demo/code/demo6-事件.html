@@ -24,10 +24,16 @@
 						num: this.state.num+1
 					})
 				},
+				//获取属性值
+				getDefaultProps: function () {
+					return {
+						num: 0
+					}
+				},
 				//定义默认的state
 				getInitialState: function() {
 					return {
-						num: 0
+						num: this.props.num
 					};
 				},
 				//定义render方法渲染虚拟dom
@@ -68,7 +74,8 @@
 				}
 			})
 			//将组件渲染到页面中
-			ReactDOM.render(<Nav />, document.getElementById('app'));
+			ReactDOM.render(<Nav num="1" />, document.getElementById('app'));
+			ReactDOM.render(<Nav num="2" />, document.getElementById('app1'));
 		</script>	
 	</body>
 </html>
