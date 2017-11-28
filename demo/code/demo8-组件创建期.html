@@ -6,6 +6,8 @@
 	</head>
 	<body>
 	<style type="text/css">
+		body {height: 2000px;}
+		.go-back {position: fixed; right: 20px; bottom: 100px; width: 40px; text-align: center; padding: 5px 0; background: rgba(0, 0, 0, .5); color: white;}
 	</style>	
 		<div id="app"></div>
 		<div id="app1"></div>
@@ -15,6 +17,54 @@
 		<script src="./js/JSXTransformer.js"></script>
 		<script type="text/jsx">
 			//创建返回定义按钮的组件
+			//组件构建完成，将字体颜色设置成绿色，当点击组件的时候改变组件的内容
+			var GoBack = React.createClass ({
+				//第一个阶段是获取默认的属性
+				getDefaultProps () {
+					console.log('01 getDefaultProps', this, arguments);
+				  return {
+				  	title: '默认标题'
+				  }	
+				},
+				//第二个阶段是设置默认状态
+				getInitialState () {
+					console.log('02 getInitialState', this, arguments);
+					return {
+						title: this.props.title
+					}
+				},
+				//第三个阶段将要构建组件
+				componentWillMount () {
+					console.log('03 componentWillMount', this, arguments);
+				},
+				//第四个阶段是输出虚拟dom树
+				render () {
+					console.log('04 render', this, arguments);
+					//输出虚拟dom
+					return (
+						<div className="go-back" style={{
+							cursor: 'pointer'
+						}} onClick={this.goTop}>{this.state.title}</div>
+					)
+				},
+				//第五个阶段是组件已经构建完成
+				componentDidMount () {
+					console.log('05 componentDidMount', this, arguments);
+					//更改字体的颜色
+					ReactDOM.findDOMNode(this).style.color = 'red';
+				},
+				//定义返回顶部的方法
+				goTop () {
+					//将滚动条设置到顶部
+					window.scrollTo(0, 0);
+					//更改文案
+					this.setState ({
+						title: '更改标题'
+					})
+				}
+			})
+			//将组件渲染到页面中
+			ReactDOM.render(<GoBack />, document.getElementById('app'));
 		</script>	
 	</body>
 </html>
